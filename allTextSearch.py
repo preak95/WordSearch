@@ -88,8 +88,8 @@ def searchword(word):
 
 
 #addToIndex(open("C:/Users/ps109/Desktop/Project/text/hacking-the-art-of-exploitation.pdf.txt"), "hackingbook")
-addToIndex("C:/Users/ps109/Desktop/Project/text/Word Difficulty.pdf.txt", "dip")
-searchword("modelsType")    
+#addToIndex("C:/Users/ps109/Desktop/Project/text/Word Difficulty.pdf.txt", "dip")
+#searchword("modelsType")
 # close connection
 connection.close()
 
