@@ -43,10 +43,11 @@ def convert(fname, txtdir, pages=None):
     converter.close()
     text = output.getvalue()
     output.close
+    return text
 
-    textFilename = txtdir + ".txt"
-    textFile = open(textFilename, "w")  # make text file
-    textFile.write(text)
+    # textFilename = txtdir + ".txt"
+    # textFile = open(textFilename, "w")  # make text file
+    # textFile.write(text)
 
 
 #converts all pdfs in directory pdfDir, saves all resulting txt files to txtdir
@@ -65,11 +66,11 @@ pdfDir = "C:/Users/ps109/Desktop/Project/WordSearch/pdf/"
 txtDir = "C:/Users/ps109/Desktop/Project/WordSearch/text/"
 
 #Convert all the PDFs to text documents
-#convertMultiple(pdfDir, txtDir)
+convertMultiple(pdfDir, txtDir)
 
 #We need to create unique list
 def addToIndex (pdffile, name):
-    db = connection.invertedindex
+    # db = connection.invertedindex
     wordarray = pdffile.read().split()
     # Now we iterate through all these words and generate a list of all the unique words present in the text
     wordset = set(wordarray)
@@ -106,6 +107,7 @@ addToIndex(open("C:/Users/ps109/Desktop/Project/text/hacking-the-art-of-exploita
 # close connection
 connection.close()
 
-"""
+
 filename = askopenfilename()
 convert(filename, txtDir)
+"""

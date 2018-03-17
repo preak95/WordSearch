@@ -34,7 +34,14 @@ from Tkinter import Tk
 from tkFileDialog import askopenfilename
 import re
 import hashlib
+from pymongo import MongoClient
 Tk().withdraw()
+
+
+# Create a new connection to a single MongoDB instance at host:port.
+connection = MongoClient()
+db = connection.wordsearch
+
 
 textfilename = askopenfilename()  # Opens window to gt the name of the text file
 
@@ -119,11 +126,19 @@ for x in wordDictionaryList:
         print (x)
     cn += 1
 
+for word in wordDictionaryList:
+    db.index.insert({
+        "word": word['word'],
+        "positions": word['positions'],
+        "fileName": word['fileName']
+    })
+
+
 print len(wordDictionaryList)
 
 cn = 0
 for word in wordarray:
-    if word == "machine":
+    if word == "so":
         cn += 1
 
 print ("Machine: " + str(cn))

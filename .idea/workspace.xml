@@ -2,10 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f0ef6858-7b9d-4c7e-ba50-a8edbfc8ec82" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/createIndexFile.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/mongoSettings.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/searchAlgorithm.py" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/text/SampleTextFile_500kb.txt" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/allTextSearch.py" afterPath="$PROJECT_DIR$/allTextSearch.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/text/hacking-the-art-of-exploitation.pdf.txt" afterPath="$PROJECT_DIR$/text/hacking-the-art-of-exploitation.pdf.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/createIndexFile.py" afterPath="$PROJECT_DIR$/createIndexFile.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -16,11 +18,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="450">
-      <file leaf-file-name="createIndexFile.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="createIndexFile.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/createIndexFile.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-700">
-              <caret line="54" column="59" lean-forward="false" selection-start-line="54" selection-start-column="51" selection-end-line="54" selection-end-column="59" />
+            <state relative-caret-position="300">
+              <caret line="42" column="26" lean-forward="true" selection-start-line="36" selection-start-column="0" selection-end-line="42" selection-end-column="26" />
               <folding>
                 <element signature="e#0#1443#1" expanded="false" />
                 <element signature="e#1445#1467#0" expanded="true" />
@@ -29,11 +31,21 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="searchAlgorithm.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/searchAlgorithm.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="150">
+              <caret line="6" column="0" lean-forward="true" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="allTextSearch.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/allTextSearch.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="110" column="25" lean-forward="true" selection-start-line="110" selection-start-column="25" selection-end-line="110" selection-end-column="25" />
+            <state relative-caret-position="425">
+              <caret line="87" column="10" lean-forward="true" selection-start-line="84" selection-start-column="8" selection-end-line="87" selection-end-column="10" />
               <folding>
                 <element signature="e#0#30#0" expanded="true" />
               </folding>
@@ -63,6 +75,7 @@
       <list>
         <option value="$PROJECT_DIR$/allTextSearch.py" />
         <option value="$PROJECT_DIR$/createIndexFile.py" />
+        <option value="$PROJECT_DIR$/searchAlgorithm.py" />
       </list>
     </option>
   </component>
@@ -105,8 +118,8 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="preferences.mongoOptions" />
+    <property name="last_opened_file_path" value="E:/Python scripts" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -270,10 +283,10 @@
     <frame x="-11" y="-11" width="1942" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24918918" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24918918" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32902467" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26204467" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -353,6 +366,48 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/allTextSearch.py">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2625">
+          <caret line="110" column="25" lean-forward="false" selection-start-line="110" selection-start-column="25" selection-end-line="110" selection-end-column="25" />
+          <folding>
+            <element signature="e#0#30#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/createIndexFile.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#1443#1" expanded="false" />
+            <element signature="e#1445#1467#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/allTextSearch.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2625">
+          <caret line="110" column="25" lean-forward="true" selection-start-line="110" selection-start-column="25" selection-end-line="110" selection-end-column="25" />
+          <folding>
+            <element signature="e#0#30#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/createIndexFile.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#1443#1" expanded="false" />
+            <element signature="e#1445#1467#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/allTextSearch.py">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="100">
           <caret line="11" column="0" lean-forward="false" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
           <folding>
@@ -404,24 +459,32 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/createIndexFile.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="42" column="26" lean-forward="true" selection-start-line="36" selection-start-column="0" selection-end-line="42" selection-end-column="26" />
+          <folding>
+            <element signature="e#0#1443#1" expanded="false" />
+            <element signature="e#1445#1467#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/allTextSearch.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="110" column="25" lean-forward="true" selection-start-line="110" selection-start-column="25" selection-end-line="110" selection-end-column="25" />
+        <state relative-caret-position="425">
+          <caret line="87" column="10" lean-forward="true" selection-start-line="84" selection-start-column="8" selection-end-line="87" selection-end-column="10" />
           <folding>
             <element signature="e#0#30#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/createIndexFile.py">
+    <entry file="file://$PROJECT_DIR$/searchAlgorithm.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-700">
-          <caret line="54" column="59" lean-forward="false" selection-start-line="54" selection-start-column="51" selection-end-line="54" selection-end-column="59" />
-          <folding>
-            <element signature="e#0#1443#1" expanded="false" />
-            <element signature="e#1445#1467#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="150">
+          <caret line="6" column="0" lean-forward="true" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
