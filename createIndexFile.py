@@ -35,6 +35,7 @@ from tkFileDialog import askopenfilename
 import re
 import hashlib
 from pymongo import MongoClient
+import os
 Tk().withdraw()
 
 
@@ -42,8 +43,8 @@ Tk().withdraw()
 connection = MongoClient()
 db = connection.wordsearch
 
-
-textfilename = askopenfilename()  # Opens window to gt the name of the text file
+"""
+textfilename = askopenfilename()  # Opens window to get the name of the text file
 
 print(textfilename)  # Prints the exact location of the file
 
@@ -64,7 +65,7 @@ hash1 = hashlib.md5()
 hash1.update(filename)
 print("Hash: " + str(hash1.hexdigest()))
 
-
+"""
 class Worddictionary:
     """This will manage the list of all the dictionary entries"""
     def __init__(self):
@@ -86,15 +87,59 @@ class Worddictionary:
 # This is a different part where I will try and make use of hash
 # tables to deal with the problem
 
+def createindexfromabook(wordarray, filename):
+    wordHashTable = {}
+
+    pos = 1
+    for word in wordarray:
+        if word not in wordHashTable:
+            wordHashTable[word] = [pos]
+        else:
+            wordHashTable[word].append(pos)
+        pos += 1
+
+    wordDictionaryList = []
+    filename = re.compile("(.*/)*").split(filename.name)[-1]
+    for k in wordHashTable:
+        wordDictionaryList.append({
+            'word': k,
+            'positions': wordHashTable[k],
+            'fileName': str(filename)
+        })
+
+    for word in wordDictionaryList:
+        db.index.insert({
+            "word": word['word'],
+            "positions": word['positions'],
+            "fileName": word['fileName']
+        })
+
+def filechooser(dir):
+    for txtfile in os.listdir(dir): #iterate through pdfs in pdf directory
+        fileExtension = txtfile.split(".")[-1]
+        wordarray = []
+        if fileExtension == "txt":
+            textfile = open(dir + txtfile)
+            wordarray = re.compile('\w+').findall(textfile.read())
+
+            # Extract the name of the book
+            filename = re.compile("(.*/)*").split(textfile.name)[-1]
+
+            createindexfromabook(wordarray, textfile)
+            print "Added to index: " + filename
+
+filechooser("C:/Users/ps109/Desktop/Project/WordSearch/text/")
+
+"""
 wordHashTable = {}
 
-cn = 1
+pos = 1
 for word in wordarray:
     if word not in wordHashTable:
-        wordHashTable[word] = [cn]
+        wordHashTable[word] = [pos]
     else:
-        wordHashTable[word].append(cn)
-    cn += 1
+        wordHashTable[word].append(pos)
+    pos += 1
 
 wordDictionaryList = []
 for k in wordHashTable:
@@ -108,7 +153,7 @@ for k in wordHashTable:
 
 cnt = 1
 
-"""
+
 for word in wordarray:
     # print("Trn No.: " + str(cnt))
     wd.dictInsert(word, cnt)
@@ -118,7 +163,7 @@ cnt = 0
 for wd in wd.dictionaryList:
     if cnt < 20:
         print wd
-"""
+
 
 cn = 0
 for x in wordDictionaryList:
@@ -142,3 +187,4 @@ for word in wordarray:
         cn += 1
 
 print ("Machine: " + str(cn))
+"""
