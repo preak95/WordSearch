@@ -1,4 +1,5 @@
 from pymongo import MongoClient
+import time
 
 """
 Hello fellas.
@@ -32,6 +33,7 @@ that we created earlier. Let us now see in detail what we are gonna do.
 connection = MongoClient()
 db = connection.wordsearch
 
+"""
 w1 = "Although"
 w2 = "splendid"
 
@@ -78,11 +80,11 @@ l2 = []
 solutiontuple = []
 
 
-""" 
+ 
 What worries me is the complexity of the code snippet below.
 Suppose there are k books, l1 has m and l2 has n entries, then the complexity of the snipped would be 
  O(knm)
-"""
+
 for book in books:
     l1 = bookworddictionary[(w1, book)]
     l2 = bookworddictionary[(w2, book)]
@@ -93,3 +95,84 @@ for book in books:
                 solutiontuple.append((book, i, j))
 
 print solutiontuple
+
+"""
+
+class SearchAlgorithm:
+    sessionqueue = []
+    timer = 0
+    time1 = 0
+    time2 = 0
+    solutiontuple = []
+
+    def __init__(self, readingspeed):
+        self.readingspeed = readingspeed
+
+    def search(self, word):
+        if len(self.sessionqueue) == 0:
+            self.sessionqueue.append(word)
+            self.time1 = time.clock()
+        elif len(self.sessionqueue) == 2:
+            self.sessionqueue.pop(0)
+            self.timer = time.clock() - self.time1
+            self.sessionqueue.append(word)
+            self.time1 = time.clock()
+            self.compute(self.sessionqueue[0], self.sessionqueue[1])
+        elif len(self.sessionqueue) == 1:
+            self.sessionqueue.append(word)
+            self.timer = time.clock() - self.time1
+            self.time1 = time.clock()
+            self.compute(self.sessionqueue[0], self.sessionqueue[1])
+
+
+    def compute(self, word1, word2):
+        #worddifference = self.readingspeed * self.timer / 60
+
+        search1 = list(db.index.find({"word": word1}))
+        search2 = list(db.index.find({"word": word2}))
+
+        searchset1 = set()
+        searchset2 = set()
+
+        for entry in search1:
+            searchset1.add(entry["fileName"])
+
+        for entry in search2:
+            searchset2.add(entry["fileName"])
+
+        intersectionSet = searchset1.intersection(searchset2)
+
+        worddifference = 80
+
+        books = []
+
+        for entry in intersectionSet:
+            books.append(entry)
+
+        bookworddictionary = {}
+
+        for book in books:
+            for entry in search1:
+                if entry["fileName"] == book and entry["word"] == word1:
+                    bookworddictionary[(word1, book)] = entry["positions"]
+
+        for book in books:
+            for entry in search2:
+                if entry["fileName"] == book and entry["word"] == word2:
+                    bookworddictionary[(word2, book)] = entry["positions"]
+
+        l1 = []
+        l2 = []
+
+
+        for book in books:
+            l1 = bookworddictionary[(word1, book)]
+            l2 = bookworddictionary[(word2, book)]
+
+            for i in l1:
+                for j in l2:
+                    if worddifference - 20 < j - i < worddifference + 20:
+                        self.solutiontuple.append((book, i, j))
+
+        print self.solutiontuple
+
