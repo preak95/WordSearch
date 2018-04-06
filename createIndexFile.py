@@ -36,6 +36,7 @@ import re
 import hashlib
 from pymongo import MongoClient
 import os
+import time
 Tk().withdraw()
 
 
@@ -108,6 +109,18 @@ def createindexfromabook(wordarray, filename):
         })
 
     for word in wordDictionaryList:
+        if db.wordfrequency.find({"word": word}) is None:
+            db.wordfrequency.insert({
+                "word": word,
+                "count": 1
+            })
+        else:
+            db.wordfrequency.update({
+                "word": word
+            }, {
+                "$inc": {"count" : len(wordHashTable[word])}
+            })
+
         db.index.insert({
             "word": word['word'],
             "positions": word['positions'],
@@ -125,7 +138,10 @@ def filechooser(dir):
             # Extract the name of the book
             filename = re.compile("(.*/)*").split(textfile.name)[-1]
 
-            createindexfromabook(wordarray, textfile)
+            createindexfromabook(wordarray, str(textfile))
+            # This line is to make sure we add the name of the file that is being added,
+            # so we do not add it again in future
+            db.allFileDirectory.insert({"filename": str(textfile), "timestamp" : time.ctime()})
             print "Added to index: " + filename
 
 filechooser("C:/Users/ps109/Desktop/Project/WordSearch/text/")

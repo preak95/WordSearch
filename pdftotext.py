@@ -7,7 +7,7 @@ import os
 import sys, getopt
 
 #converts pdf, returns its text content as a string
-def convert(fname, pages=None):
+def convert(fname, pages = None):
     if not pages:
         pagenums = set()
     else:
@@ -27,6 +27,7 @@ def convert(fname, pages=None):
     output.close
     return text
 
+# bin/rar/raare
 
 #converts all pdfs in directory pdfDir, saves all resulting txt files to txtdir
 def convertMultiple(pdfDir, txtDir):

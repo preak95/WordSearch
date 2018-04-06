@@ -22,7 +22,7 @@ print("Your reading speed is:" + str(int(593/((t2 - t1)/60))))
 
 readingspeed = int(593/((t2 - t1)/60))
 
-search = Search.SearchAlgorithm(readingspeed = 180)
+search = Search.SearchAlgorithm(readingspeed)
 
 def searchword(word):
     search.search(word)

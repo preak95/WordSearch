@@ -100,7 +100,7 @@ print solutiontuple
 
 class SearchAlgorithm:
     sessionqueue = []
-    timer = 0
+    Time = 0
     time1 = 0
     time2 = 0
     solutiontuple = []
@@ -113,20 +113,22 @@ class SearchAlgorithm:
             self.sessionqueue.append(word)
             self.time1 = time.clock()
         elif len(self.sessionqueue) == 2:
-            self.sessionqueue.pop(0)
-            self.timer = time.clock() - self.time1
+            self.sessionqueue.popleft()
+            self.Time = time.clock() - self.time1
             self.sessionqueue.append(word)
             self.time1 = time.clock()
             self.compute(self.sessionqueue[0], self.sessionqueue[1])
         elif len(self.sessionqueue) == 1:
             self.sessionqueue.append(word)
-            self.timer = time.clock() - self.time1
+            self.Time = time.clock() - self.time1
             self.time1 = time.clock()
             self.compute(self.sessionqueue[0], self.sessionqueue[1])
 
 
     def compute(self, word1, word2):
-        #worddifference = self.readingspeed * self.timer / 60
+        worddifference = int(self.readingspeed * self.Time / 60)
+
+        print ("Word Difference is: " + str(worddifference))
 
         search1 = list(db.index.find({"word": word1}))
         search2 = list(db.index.find({"word": word2}))
@@ -142,7 +144,7 @@ class SearchAlgorithm:
 
         intersectionSet = searchset1.intersection(searchset2)
 
-        worddifference = 80
+        # worddifference = 80
 
         books = []
 
@@ -164,14 +166,14 @@ class SearchAlgorithm:
         l1 = []
         l2 = []
 
-
+        del self.solutiontuple[:]
         for book in books:
             l1 = bookworddictionary[(word1, book)]
             l2 = bookworddictionary[(word2, book)]
 
             for i in l1:
                 for j in l2:
-                    if worddifference - 20 < j - i < worddifference + 20:
+                    if worddifference - 40 < j - i < worddifference + 20:
                         self.solutiontuple.append((book, i, j))
 
         print self.solutiontuple
