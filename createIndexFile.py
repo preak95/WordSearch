@@ -88,15 +88,21 @@ class Worddictionary:
 # This is a different part where I will try and make use of hash
 # tables to deal with the problem
 
-def createindexfromabook(wordarray, filename):
+def createindexfromafile(wordarray, filename):
     wordHashTable = {}
-
+    wordfrequency = {}
     pos = 1
     for word in wordarray:
-        if word not in wordHashTable:
-            wordHashTable[word] = [pos]
+        if word.lower() not in wordHashTable:
+            wordHashTable[word.lower()] = [pos]
         else:
-            wordHashTable[word].append(pos)
+            wordHashTable[word.lower()].append(pos)
+
+        if word.lower() not in wordfrequency:
+            wordfrequency[word.lower()] = 1
+        else:
+            wordfrequency[word.lower()] += 1
+
         pos += 1
 
     wordDictionaryList = []
@@ -108,24 +114,29 @@ def createindexfromabook(wordarray, filename):
             'fileName': str(filename)
         })
 
-    for word in wordDictionaryList:
-        if db.wordfrequency.find({"word": word}) is None:
-            db.wordfrequency.insert({
-                "word": word,
-                "count": 1
-            })
+    for word in wordfrequency:
+        # This would deal with maintaining a frequency of words
+        db.freq.update({
+            "word": word
+        }, {
+            "$inc": {"count": wordfrequency[word]}
+        }, True)
+        """
         else:
-            db.wordfrequency.update({
-                "word": word
-            }, {
-                "$inc": {"count" : len(wordHashTable[word])}
-            })
+        # print "Entering:" + word['word']
+        db.freq.insert({
+            "word": word['word'],
+            "count": len(word['positions'])
+        }, True)
+        """
 
+    for word in wordDictionaryList:
         db.index.insert({
             "word": word['word'],
             "positions": word['positions'],
             "fileName": word['fileName']
         })
+
 
 def filechooser(dir):
     for txtfile in os.listdir(dir): #iterate through pdfs in pdf directory
@@ -138,69 +149,16 @@ def filechooser(dir):
             # Extract the name of the book
             filename = re.compile("(.*/)*").split(textfile.name)[-1]
 
-            createindexfromabook(wordarray, str(textfile))
+            createindexfromafile(wordarray, textfile)
             # This line is to make sure we add the name of the file that is being added,
             # so we do not add it again in future
-            db.allFileDirectory.insert({"filename": str(textfile), "timestamp" : time.ctime()})
+            db.allFileDirectory.insert({"filename": str(filename), "timestamp": time.ctime()})
+
+            # This line is supposed to add the wordarray along with the filename
+            # so as to allow us too gain access to all the words of a particular book
+            db.wordsinfilelist.insert({"filename": filename, "wordlist": wordarray})
             print "Added to index: " + filename
 
+# Execution
+
 filechooser("C:/Users/ps109/Desktop/Project/WordSearch/text/")
-
-"""
-wordHashTable = {}
-
-pos = 1
-for word in wordarray:
-    if word not in wordHashTable:
-        wordHashTable[word] = [pos]
-    else:
-        wordHashTable[word].append(pos)
-    pos += 1
-
-wordDictionaryList = []
-for k in wordHashTable:
-    wordDictionaryList.append({
-        'word': k,
-        'positions': wordHashTable[k],
-        'fileName': str(filename)
-    })
-
-# wd = Worddictionary()
-
-cnt = 1
-
-
-for word in wordarray:
-    # print("Trn No.: " + str(cnt))
-    wd.dictInsert(word, cnt)
-    cnt += 1
-
-cnt = 0
-for wd in wd.dictionaryList:
-    if cnt < 20:
-        print wd
-
-
-cn = 0
-for x in wordDictionaryList:
-    if cn < 200:
-        print (x)
-    cn += 1
-
-for word in wordDictionaryList:
-    db.index.insert({
-        "word": word['word'],
-        "positions": word['positions'],
-        "fileName": word['fileName']
-    })
-
-
-print len(wordDictionaryList)
-
-cn = 0
-for word in wordarray:
-    if word == "so":
-        cn += 1
-
-print ("Machine: " + str(cn))
-"""

@@ -103,7 +103,7 @@ class SearchAlgorithm:
     Time = 0
     time1 = 0
     time2 = 0
-    solutiontuple = []
+    solutionlist = []
 
     def __init__(self, readingspeed):
         self.readingspeed = readingspeed
@@ -113,7 +113,7 @@ class SearchAlgorithm:
             self.sessionqueue.append(word)
             self.time1 = time.clock()
         elif len(self.sessionqueue) == 2:
-            self.sessionqueue.popleft()
+            self.sessionqueue.pop(0)
             self.Time = time.clock() - self.time1
             self.sessionqueue.append(word)
             self.time1 = time.clock()
@@ -123,6 +123,8 @@ class SearchAlgorithm:
             self.Time = time.clock() - self.time1
             self.time1 = time.clock()
             self.compute(self.sessionqueue[0], self.sessionqueue[1])
+
+        return self.solutionlist
 
 
     def compute(self, word1, word2):
@@ -166,7 +168,7 @@ class SearchAlgorithm:
         l1 = []
         l2 = []
 
-        del self.solutiontuple[:]
+        del self.solutionlist[:]
         for book in books:
             l1 = bookworddictionary[(word1, book)]
             l2 = bookworddictionary[(word2, book)]
@@ -174,7 +176,9 @@ class SearchAlgorithm:
             for i in l1:
                 for j in l2:
                     if worddifference - 40 < j - i < worddifference + 20:
-                        self.solutiontuple.append((book, i, j))
+                        self.solutionlist.append([book, i, j])
 
-        print self.solutiontuple
+        print self.solutionlist
+        print self.sessionqueue
+        return self.solutionlist
 
