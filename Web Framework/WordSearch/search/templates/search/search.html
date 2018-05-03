@@ -1,0 +1,115 @@
+<!DOCTYPE HTML>
+
+<html>
+<head>
+    <title>WordSearch</title>
+
+    <!-- This is the bootstrap loading URLs-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <style type="text/css">
+        #txtarea{
+            height: 30px;
+            width: 250px;
+            opacity: 0.9;
+            color: white;
+            background-color: transparent;
+            border-width: 2px;
+        }
+
+
+        body {
+            background-image: url("ing3.jpg");
+        }
+        .red .active a,
+        .red .active a:hover {
+            background-color: red;
+        }
+
+        .centreform {
+            margin-left: 37.5%;
+            margin-top: 10%;
+            position: absolute;
+        }
+
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-inverse">
+
+		<form id="lout" method="POST" action="/logout">
+			<input type="hidden" name="name">
+		</form>
+
+		<form id="viewall" method="POST" action="/viewall">
+			<input type="hidden" name="name">
+		</form>
+
+		<form id="new" method="GET" action="/login">
+			<input type="hidden" name="name">
+		</form>
+
+		<form id="help" method="POST" action="/help">
+			<input type="hidden" name="name">
+		</form>
+
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+		    	</button>
+				<a href="#" class="navbar-brand">WordSearch</a>
+			</div>
+
+			<div class="collapse navbar-collapse" id="myNavbar">
+				<ul class="nav navbar-nav">
+					<li><a onclick="document.getElementById('new').submit()">First time here?</a></li>
+                    <!--
+					<li><a onclick="document.getElementById('viewall').submit()">View all</a></li>
+					<li><a>Category</a></li>
+					<li><a onclick="document.getElementById('help').submit()">Help</a></li>
+					-->
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="#" onclick="document.getElementById('lout').submit()">Logout</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+
+
+    <div class="container-fluid">
+        <div style="height:100px"></div>
+    <div class="row">
+        <div class="col-sm-4" >
+            <a></a>
+        </div>
+
+		<div class="col-sm-4">
+            <h1 style="margin-left: 22%; margin-bottom: 20px; text-align:centre">WordSearch</h1>
+            <form>
+                <input type="text" name="word" id="txtarea" class="form-control form-rounded" style="width:100%"><br>
+                <input type="submit" name="search" style="margin-left: 39.5%;" class="btn btn-success" value="Search">
+            </form>
+        </div>
+
+        <div class="col-sm-4">
+            <a></a>
+        </div>
+    </div>
+    </div>
+</body>
+
+</html>
