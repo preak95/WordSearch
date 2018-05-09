@@ -175,10 +175,10 @@ class SearchAlgorithm:
 
             for i in l1:
                 for j in l2:
-                    if worddifference - 40 < j - i < worddifference + 20:
+                    if worddifference - 70 < j - i < worddifference + 70:
                         self.solutionlist.append([book, i, j])
 
-        print self.solutionlist
-        print self.sessionqueue
+        print(self.solutionlist)
+        print(self.sessionqueue)
         return self.solutionlist
 

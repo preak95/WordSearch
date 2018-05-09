@@ -25,14 +25,14 @@ mainframe.rowconfigure(0, weight=1)
 solutionlist = []
 
 def helper(word):
-    print "Shit!"
+    print ("Shit!")
     searchresult = search.search(word)
     if len(list(searchresult)) == 1:
         # wordarray = db.wordsInFileList.find({"filename": solutionlist[0][0].split("'")[1]})
         filename = unicodedata.normalize('NFKD', solutionlist[0][0]).encode('ascii', 'ignore')
-        print filename
+        print (filename)
         wordarray = list(db.wordsInFileList.find({"filename": str(filename)}))[0]["wordlist"]
-        print len(wordarray)
+        print (len(wordarray))
 
         testwindow = gui.MeaningSearch(wordarray, 210, solutionlist[0][2])
 

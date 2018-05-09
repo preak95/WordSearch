@@ -90,24 +90,30 @@
 
 
     <div class="container-fluid">
+
         <div style="height:100px"></div>
-    <div class="row">
-        <div class="col-sm-4" >
-            <a></a>
+
+        <div class="row">
+            <div class="col-sm-4" >
+                <a></a>
+            </div>
+
+            <div class="col-sm-4">
+                <h1 style="margin-left: 22%; margin-bottom: 20px; text-align:centre">WordSearch</h1>
+                <form action="/searchword">
+                    <input type="text" name="word" id="txtarea" class="form-control form-rounded" style="width:100%"><br>
+                    <input type="submit" name="search" style="margin-left: 39.5%;" class="btn btn-success" value="Search">
+                </form>
+            </div>
+
+            <div class="col-sm-4">
+                <a></a>
+            </div>
         </div>
 
-		<div class="col-sm-4">
-            <h1 style="margin-left: 22%; margin-bottom: 20px; text-align:centre">WordSearch</h1>
-            <form>
-                <input type="text" name="word" id="txtarea" class="form-control form-rounded" style="width:100%"><br>
-                <input type="submit" name="search" style="margin-left: 39.5%;" class="btn btn-success" value="Search">
-            </form>
-        </div>
+        <div class="result">
 
-        <div class="col-sm-4">
-            <a></a>
         </div>
-    </div>
     </div>
 </body>
 

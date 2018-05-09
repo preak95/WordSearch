@@ -92,7 +92,7 @@ def addToIndex (pdffile, name):
                 "$push": {"pdfs": name}
             })
         '''
-    print "The documents were saved"
+    print("The documents were saved")
 
 """
 def searchword(word):
