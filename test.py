@@ -1,79 +1,38 @@
-from pymongo import MongoClient
-from wordnik import *
+import numpy as np
+import cv2
 
-connection = MongoClient()
-db = connection.wordsearch
+face_cascade = cv2.CascadeClassifier('C:/Python27/Lib/site-packages/cv2/data/haarcascade_frontalface_default.xml')
+if face_cascade.empty():
+   raise Exception("your face_cascade is empty. are you sure, the path is correct ?")
 
-apiUrl = 'http://api.wordnik.com/v4'
-apiKey = 'cbf25abcf44677fc4a12f0b721e0c2f4c5d9c5e13f14a9079'
-client = swagger.ApiClient(apiKey, apiUrl)
+eye_cascade = cv2.CascadeClassifier('C:/Python27/Lib/site-packages/cv2/data/haarcascade_eye.xml')
+if eye_cascade.empty():
+    raise Exception("your eye_cascade is empty. are you sure, the path is correct ?")
 
-"""
-words = ["pratik", "neeraj", "awesome"]
-wordHashTable = {"neeraj": 32, "awesome": 99, "pratik": 42}
+video = cv2.VideoCapture(0)
+while(video.isOpened()):
+    ret, frame = video.read()
+    if frame is not None:
+        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        faces = face_cascade.detectMultiScale(gray, 1.3, 5)
 
-wordHashTable2 = {"pratik": 10, "neeraj": 3}
+        for (x, y, w, h) in faces:
+            """
+            cv2.rectangle(frame,(x,y),(x+w,y+h),(255,0,0),2)
+            roi_gray = gray[y:y+h, x:x+w]
+            roi_color = frame[y:y+h, x:x+w]
+            eyes = eye_cascade.detectMultiScale(roi_gray)
+            for (ex,ey,ew,eh) in eyes:
+                cv2.rectangle(roi_color,(ex,ey),(ex+ew,ey+eh),(0,255,0),2)
+            """
+            if x == 0 or y == 0 or w == 0 or h == 0:
+                print("NOT DETECTING")
+            else:
+                print("detecting")
 
-for word in wordHashTable:
-    print "Something"
-    # if len(list(db.freq.find({"word": str(word)}))) != 0:
-    db.freq.update({
-        "word": word
-        }, {
-        "$inc": {"count": wordHashTable[word]}
-        }, True
-    )
+        # cv2.imshow('Video', frame)
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
 
-for word in wordHashTable2:
-    # if len(list(db.freq.find({"word": str(word)}))) != 0:
-    db.freq.update({
-        "word": word
-        }, {
-        "$inc": {"count": wordHashTable2[word]}
-        }, Tru
-    else:
-        print "Entering"
-        db.freq.insert({
-            "word": word,
-            "count": wordHashTable[word]
-        })
-
-print list(db.freq.find()
-
-frequencylist = list(db.freq.find())
-frequencyDictionary = {}
-wordandfrequencydictionary = {}
-
-wordarray = list(db.wordsInFileList.find({"filename": "1- Stormbreaker.pdf.txt"}))
-wordarray = list(wordarray[0]["wordlist"])
-
-for item in frequencylist:
-    frequencyDictionary[str(item["word"].lower())] = int(item["count"])
-    #print(item["count"])
-
-for word in wordarray:
-    if frequencyDictionary[word.lower()] < 1000:
-        wordandfrequencydictionary[str(word.lower())] = 1
-    else:
-        wordandfrequencydictionary[str(word.lower())] = 0
-
-#print(wordandfrequencydictionary["raining"])
-
-sortedDict = {}
-sortedlist = []
-
-for key, value in sorted(frequencyDictionary.iteritems(), key=lambda (k,v): (v,k)):
-    sortedDict[key] = value
-    sortedlist.append(value)
-
-print(sortedlist[74000])
-
-print(list(db.freq.find({"count": 30})))
-
-
-"""
-
-
-wordApi = WordApi.WordApi(client)
-example = wordApi.getDefinitions('renew')
-print(example[0].text)
+video.release()
+cv2.destroyAllWindows()

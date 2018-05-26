@@ -42,9 +42,9 @@ while choice != 0:
         if len(list(solutionlist)) == 1:
             # wordarray = db.wordsInFileList.find({"filename": solutionlist[0][0].split("'")[1]})
             filename = unicodedata.normalize('NFKD', solutionlist[0][0]).encode('ascii', 'ignore')
-            print filename
+            print(filename)
             wordarray = list(db.wordsInFileList.find({"filename": str(filename)}))[0]["wordlist"]
-            print len(wordarray)
+            print(len(wordarray))
 
             testwindow = gui.MeaningSearch(wordarray, 210, solutionlist[0][2])
 

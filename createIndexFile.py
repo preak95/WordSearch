@@ -156,8 +156,8 @@ def filechooser(dir):
 
             # This line is supposed to add the wordarray along with the filename
             # so as to allow us too gain access to all the words of a particular book
-            db.wordsinfilelist.insert({"filename": filename, "wordlist": wordarray})
-            print "Added to index: " + filename
+            db.wordsInFileList.insert({"filename": filename, "wordlist": wordarray})
+            print("Added to index: " + filename)
 
 # Execution
 

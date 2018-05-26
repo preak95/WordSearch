@@ -57,12 +57,12 @@ def convertMultiple(pdfDir, txtDir):
         fileExtension = pdf.split(".")[-1]
         if fileExtension == "pdf":
             pdfFilename = pdfDir + pdf
-            text = convert(pdfFilename) #get string of text content of pdf
+            text = convert(pdfFilename, txtDir) #get string of text content of pdf
             textFilename = txtDir + pdf + ".txt"
             textFile = open(textFilename, "w") #make text file
             textFile.write(text) #write text to text file
 
-pdfDir = "C:/Users/ps109/Desktop/Project/WordSearch/pdf/"
+pdfDir = "C:/Users/ps109/Desktop/Project/WordSearch/pdfs/Singles/"
 txtDir = "C:/Users/ps109/Desktop/Project/WordSearch/text/"
 
 #Convert all the PDFs to text documents
@@ -71,7 +71,7 @@ convertMultiple(pdfDir, txtDir)
 #We need to create unique list
 def addToIndex (pdffile, name):
     # db = connection.invertedindex
-    wordarray = pdffile.read().split()
+    wordarray = pdffile.split()
     # Now we iterate through all these words and generate a list of all the unique words present in the text
     wordset = set(wordarray)
     uniqueset = set()
@@ -107,7 +107,6 @@ addToIndex(open("C:/Users/ps109/Desktop/Project/text/hacking-the-art-of-exploita
 # close connection
 connection.close()
 
-
-filename = askopenfilename()
-convert(filename, txtDir)
 """
+# filename = askopenfilename()
+# addToIndex(filename, txtDir)

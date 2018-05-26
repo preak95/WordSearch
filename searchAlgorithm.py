@@ -107,6 +107,7 @@ class SearchAlgorithm:
 
     def __init__(self, readingspeed):
         self.readingspeed = readingspeed
+        self.intersectionset = set()
 
     def search(self, word):
         if len(self.sessionqueue) == 0:
@@ -132,6 +133,8 @@ class SearchAlgorithm:
 
         print ("Word Difference is: " + str(worddifference))
 
+        # Performing search on the old intersection set only if its not empty
+
         search1 = list(db.index.find({"word": word1}))
         search2 = list(db.index.find({"word": word2}))
 
@@ -144,13 +147,18 @@ class SearchAlgorithm:
         for entry in search2:
             searchset2.add(entry["fileName"])
 
-        intersectionSet = searchset1.intersection(searchset2)
+        temporaryset = searchset1.intersection(searchset2)
+
+        if bool(self.intersectionset) is True:
+            self.intersectionset = self.intersectionset.intersection(temporaryset)
+        else:
+            self.intersectionset = temporaryset
 
         # worddifference = 80
 
         books = []
 
-        for entry in intersectionSet:
+        for entry in self.intersectionset:
             books.append(entry)
 
         bookworddictionary = {}

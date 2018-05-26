@@ -15,6 +15,8 @@ import datetime
 from pymongo import MongoClient
 from wordnik import *
 from PIL import Image, ImageTk
+import threading
+
 
 connection = MongoClient()
 db = connection.wordsearch
@@ -26,14 +28,20 @@ client = swagger.ApiClient(apiKey, apiUrl)
 
 class MeaningSearch:
     x = 0
+    y = -1
     tempx = 0
     wordarray = []
+    wordpositions = []
+
+    wordmeaningcache = {}
+
     pauseflag = False
     wordandfrequencydictionary = {}
-    frequencyThreshold = 20
+    frequencyThreshold = 30
     timer = 0
     delay = 0
     root = Tk()
+    root.title("WordSearch")
     mainframe = Frame(root)
     centreframe = Frame(mainframe)
     labels = Label(centreframe, text="")
@@ -103,11 +111,22 @@ class MeaningSearch:
         # ss
         self.mainframe.focus_set()
 
+        # A loop to gather the positions of the hard words only
+        p = 0
+        for word in self.wordarray:
+            if self.wordandfrequencydictionary[word.lower()] == 1:
+                self.wordpositions.append(p)
+            p += 1
+        print("No. of difficult words:" + str(len(self.wordpositions)) + " " + str(len(wordarray)))
+        print(self.wordarray[self.wordpositions[0]])
+
     def forward(self):
-        self.x += 1
+        self.x = self.wordpositions[self.y + 1]
+        print("Forward:" + self.wordarray[self.x])
 
     def backward(self):
-        self.x -= 10
+        self.x = self.wordpositions[self.y - 1]
+        print("Backward:" + self.wordarray[self.x])
 
     def pause(self):
         if self.pauseflag is False:
@@ -120,10 +139,14 @@ class MeaningSearch:
     # Keyboard event functions
 
     def forwardevent(self, event):
-        self.x += 1
+        self.pause()
+        self.x = self.wordpositions[self.y + 1]
+        self.pause()
 
     def backwardevent(self, event):
-        self.x -= 10
+        self.pause()
+        self.x = self.wordpositions[self.y - 1]
+        self.pause()
 
     def pauseevent(self, event):
         if self.pauseflag is False:
@@ -136,10 +159,36 @@ class MeaningSearch:
     def clocker(self):
         for child in self.mainframe.winfo_children():
             child.grid_configure(padx=5, pady=5)
+
+        if self.x == 0:
+            downloadthread = threading.Thread(target=self.meaningcacher)
+            downloadthread.start()
+        else:
+            pass
+
         self.printer(self.wordarray[self.x])
+
         if self.pauseflag is False:
             self.x += 1
+            #print("Printing:" + self.wordarray[self.x])
         self.root.after(self.delay, self.clocker)
+
+    def meaningcacher(self):
+        while True:
+            wordnext1 = self.wordarray[self.wordpositions[self.y + 1]]
+            wordnext2 = self.wordarray[self.wordpositions[self.y + 2]]
+            if wordnext1[-1] == 's':
+                wordnext1 = wordnext1[0:-1]
+            if wordnext2[-1] == 's':
+                wordnext2 = wordnext2[0:-1]
+            self.wordmeaningcache[wordnext1.lower()] = self.wordApi.getDefinitions(wordnext1.lower())
+            self.wordmeaningcache[wordnext2.lower()] = self.wordApi.getDefinitions(wordnext2.lower())
+            if len(self.wordmeaningcache) > 10:
+                self.wordmeaningcache.clear()
+            print("Cache Size: " + str(len(self.wordmeaningcache)))
+
+            print("Cache: " + str(self.wordmeaningcache.keys()))
+
 
     def printer(self, word):
         # print "What the hell?!" + str(arr[0])
@@ -149,19 +198,27 @@ class MeaningSearch:
             self.labels.configure(text=word.title(), font='Helvetica 18 bold')
             self.previousword = word.title()
 
-            if word[-1] == 's':
-                word = word[0:-1]
+            self.y += 1
+
+            #if word[-1] == 's':
+             #   word = word[0:-1]
             definition = []
             try:
+                # if self.wordmeaningcache[word.lower()] is not None:
+                if word[-1] == 's':
+                    word = word[0:-1]
+                definition = self.wordmeaningcache[word.lower()]
+                print("Using Cache for:" + word)
+
+            except KeyError:
+                if word[-1] == 's':
+                    word = word[0:-1]
                 definition = self.wordApi.getDefinitions(word)
-            except:
-                self.meaningoutput.configure(text="Some error occurred while trying to connect to API")
-                self.labels.configure(text="           ")
 
             if definition is not None:
                 text = definition[0].text + " "*(200 - (len(definition[0].text) % 200))
                 self.meaningoutput.configure(text=text, font='Helvetica 9 italic')
-                time.sleep(4)
+                time.sleep(3)
             else:
                 self.meaningoutput.configure(text=" "*200)
                 self.labels.configure(text="      ")
